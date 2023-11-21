@@ -72,9 +72,10 @@ def find_seq_diff(seq1,seq2):
  else:
   align_data=pairwise2.format_alignment(*align_list[0]).split('\n')
   #print(align_data)
+  letters= 'ACDEFGHIKLMNPQRSTVWY'
   seq_comp=pd.DataFrame({"seq1": list(align_data[0]), "seq2": list(align_data[2])})
-  seq_comp=seq_comp.assign(seq1_pos= seq_comp.seq1.isin(list(Bio.Seq.Alphabet.IUPAC.IUPACProtein.letters)).cumsum())
-  seq_comp=seq_comp.assign(seq2_pos= seq_comp.seq2.isin(list(Bio.Seq.Alphabet.IUPAC.IUPACProtein.letters)).cumsum())
+  seq_comp=seq_comp.assign(seq1_pos= seq_comp.seq1.isin(list(letters)).cumsum())
+  seq_comp=seq_comp.assign(seq2_pos= seq_comp.seq2.isin(list(letters)).cumsum())
   seq_comp=seq_comp.assign(match=seq_comp.seq1==seq_comp.seq2)
  #print(seq_comp.head())
  #print(seq_comp[seq_comp.match==False])
